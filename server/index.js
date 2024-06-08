@@ -17,6 +17,21 @@ app.use('/api/auth', require('./routes/auth'));
 app.use('/api/hostel', require('./routes/hostel'));
 app.use('/api/laundry', require('./routes/laundry'));
 
+// Middleware to set cache-control header for all responses
+app.use((req, res, next) => {
+  res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
+  next();
+});
+
+
+// Middleware to set X-Content-Type-Options header for all responses
+app.use((req, res, next) => {
+  res.setHeader('X-Content-Type-Options', 'nosniff');
+  next();
+});
+
+
+
 // Serve static files from the React app
 app.use(express.static(path.join(__dirname, '../client/build')));
 
